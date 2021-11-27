@@ -8,8 +8,8 @@ from rank import *
 from info import *
 from manage import *
 
-data = pd.read_csv('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/3조_prototype_옒삽질/menu_including_rate.csv', encoding = 'utf-8')
-infodata = pd.read_csv('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/3조_prototype_옒삽질/rest_info.csv', encoding = 'utf-8')
+data = pd.read_csv('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/1127_prototype_수정/menu_including_rate.csv', encoding = 'utf-8')
+infodata = pd.read_csv('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/1127_prototype_수정/rest_info.csv', encoding = 'utf-8')
 
 while(True): 
     # 프로그램 시작 ---------------------------------------------------------------------------
@@ -31,43 +31,58 @@ while(True):
         
 
     elif (ans == 999) : # 관리자 모드 들어가기 ------------------------------------------------
-        print("진입할 메뉴를 선택하세요. \n\n")
-        print("1. 요일 설정\n")
-        print("2. 메뉴 수정\n")
-        print("3. 식당 수정\n")
+        print("코드를 입력하세요.\n")
+        manage_code = input()
+        if (manage_code == "banana") : #관리자 모드 보안 acess 1 --------------------------------
+            print("코드를 입력하세요.\n")
+            manage_code2 = input()
+            if (manage_code2 == "cat") : #관리자 모드 보안 acess 2 ------------------------------
+                print("진입할 메뉴를 선택하세요. \n\n")
+                print("1. 요일 설정\n")
+                print("2. 메뉴 수정\n")
+                print("3. 식당 수정\n")
 
-        ans = int(input())
+                ans = int(input())
 
-        if (ans == 1):
-            today = day()
-            
-        elif (ans == 2):
-            print("원하시는 메뉴를 선택하세요.\n\n")
-            print("1. 메뉴 삭제\n")
-            print("2. 메뉴 추가\n")
+                if (ans == 1):
+                    today = day()
 
-            ans = int(input())
+                elif (ans == 2):
+                    print("원하시는 메뉴를 선택하세요.\n\n")
+                    print("1. 메뉴 삭제\n")
+                    print("2. 메뉴 추가\n")
 
-            if (ans == 1): # 메뉴 삭제
-                del_menu(data)
+                    ans = int(input())
 
-            else: # 메뉴 추가 --> ans == 2인 경우 
-                add_menu(data)
+                    if (ans == 1):  # 메뉴 삭제
+                        del_menu(data)
 
-        elif (ans == 3):
-            #print(infodata)
-            print("\n원하시는 작업을 선택하세요.\n\n") 
-            print("1. 식당 정보 삭제\n")
-            print("2. 식당 정보 추가\n")
+                    else:  # 메뉴 추가 --> ans == 2인 경우
+                        add_menu(data)
 
-            ans = int(input())
+                elif (ans == 3):
+                    # print(infodata)
+                    print("\n원하시는 작업을 선택하세요.\n\n")
+                    print("1. 식당 정보 삭제\n")
+                    print("2. 식당 정보 추가\n")
 
-            if (ans == 1): #식당 정보 삭제
-                del_info(infodata)
-            else: #식당 정보 추가 --> ans == 2인 경우
-                add_info(infodata)
+                    ans = int(input())
 
-    #elif (ans == 2) : # 랭킹 조회 ------------------------------------------------------------
+                    if (ans == 1):  # 식당 정보 삭제
+                        del_info(infodata)
+                    else:  # 식당 정보 추가 --> ans == 2인 경우
+                        add_info(infodata)
+            else :
+                break
+        else :
+            break
+
+
+
+    elif (ans == 2) : # 랭킹 조회 ------------------------------------------------------------
+        while(True):
+            rank_prt()
+            finish()
             
     elif (ans == 3) : # 만족도 조사 ----------------------------------------------------------
         while(1):

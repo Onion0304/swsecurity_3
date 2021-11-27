@@ -1,6 +1,7 @@
 # 1) 만족도 조사 (def satisfy) 
 # 2) 랭킹 출력 (def rank_prt)
 
+import pandas as pd
 from choice import *
 from menu import *
 
@@ -30,3 +31,25 @@ def satisfy(data) : # 만족도 조사 대상을 한정한 이후의 과정
             
         else:
             print("잘못된 번호를 입력하셨습니다.")
+
+
+def rank_prt() :
+
+    data = pd.read_csv('rating_sample.csv')
+
+    rank = new['만족도'].rank(ascending=False)
+
+    df = pd.read_csv('rating_sample.csv')
+    new = df.sort_values(['만족도'], ascending=[False])
+    rank = new['만족도'].rank(ascending=False)
+
+    ranking = []
+
+    for i in ranking:
+        print("랭킹 " + str(int(i)) + "위" + menu)
+        ranking.append(str(int(i)) + "위")
+
+    ranking = pd.DataFrame({'랭킹': ranking})
+    userselect = input("랭킹의 기준을 선택하세요: 요일, 건물, 식당, 시간대\n")
+
+    df_sort_group = df.sort_values(by=[userselect, "만족도"], ascending=[False, True])
