@@ -1,16 +1,19 @@
 import csv
 import time
 import pandas as pd
+
 from choice import *
 from menu import *
 from rank import * 
 from info import *
 from manage import *
 
+"""
 f = open('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/3조_prototype/menu_contents.csv', 'r', encoding='utf-8')
 lines = f.readlines()    
 f.close()
 # 메뉴 파일 입출력 관련 수작업 부분(?) 전부 pandas로 대체 
+"""
 
 data = pd.read_csv('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/3조_prototype/menu_contents.csv', encoding = 'utf-8')
 
@@ -29,7 +32,9 @@ while(True):
         cam = campus() # 캠퍼스 선택
         cam_time = times() # 시간대(조식 / 중식 / 석식) 선택
         
-        menu_prt(cam, cam_time, today, lines)
+        menu_prt(cam, cam_time, today, data)
+        finish()
+        
 
     elif (ans == 999) : # 관리자 모드 들어가기
         print("진입할 메뉴를 선택하세요. \n\n")
@@ -41,6 +46,7 @@ while(True):
 
         if (ans == 1):
             today = day()
+            
         elif (ans == 2):
             print("원하시는 메뉴를 선택하세요.\n\n")
             print("1. 메뉴 삭제\n")
