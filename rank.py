@@ -1,3 +1,2 @@
-# 모듈 2개
-#1. 만족도조사 결과 저장 --> store 
-#2. ranking 출력 --> rank_prt
+# 1) 랭킹 출력 (def rank_prt)
+# 2) 만족도 조사 (def satisfy)
