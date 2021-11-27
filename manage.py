@@ -29,18 +29,46 @@ def finish():
     print("20초 뒤 초기 화면으로 이동합니다.")
     time.sleep(20)
 
+def del_menu(data):
+    """
+    - 데이터 받아와서
+    - 삭제를 함
+    - 원본 데이터(인 척하는 복사본을 만듭시다.)
+    """
+    ans = input("삭제할 데이터의 요일을 입력하세요.")
 
-"""
-def menu_prt(lst, identifier): # 메뉴 출력을 위한 함수 
-    if identifier == 0: # 메뉴 처음 출력하는 경우 
-        idx = 0
-        for i in range(len(lst)):
-            print("%d. %s" % (i + 1, lst[i]))
-            idx = i + 1
-        return idx
-        
-    else: # 직전에 다른 리스트의 값을 출력했고, 연달아 출력하려는 경우
-        for i in range(len(lst)):
-            print("%d. %s" % (identifier + i + 1, lst[i]))
-        return 
-"""
+    # 요일로 필터링된 데이터프레임 출력
+    condition = (data.요일 == ans) 
+    filtered = data[condition]
+    print(filtered)
+
+    num = int(input("삭제할 행의 번호를 입력하세요."))
+
+    new_data = data.drop([data.index[num]])
+    print(new_data)
+
+    data.to_csv('./new_data.csv')
+
+def add_menu(data):
+    print("추가할 데이터를 입력받겠습니다.\n")
+    
+    day = input("요일을 입력하세요 (ex.월요일)")
+    campus = input("캠퍼스를 입력하세요 (ex.서울캠퍼스)")
+    building = input("건물을 입력하세요 (ex.308관)")
+    restaurant = input("식당을 입력하세요 (ex.참슬기식당)")
+    mealtime = input("시간대를 입력하세요(ex.조식)")
+    price = int(input("가격을 입력하세요(ex.3200)"))
+    menu = input("메뉴를 입력하세요")
+    kcal = int(input("칼로리를 입력하세요(ex.800)"))
+    
+    print(data.columns)
+
+    new_data = [day, campus, building, restaurant, mealtime, price, menu, kcal]
+    data.loc[len(data)] = new_data #['아이린',26,160]
+
+    print(data)
+    data.to_csv('./new_data2.csv')
+
+
+
+
