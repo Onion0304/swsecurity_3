@@ -1,7 +1,32 @@
 # 1) 식당 정보 출력 (def restaurant)
+# 2) 식당 정보 삭제 (def del_info)
+# 3) 식당 정보 추가 (def add_info)
 
-def restaurant ():
+def restaurant(data):
     print("식당 정보를 알려드리겠습니다.\n")
-    print("서울캠퍼스 참슬기식당\n\t위치: 310관 지하 4층\n\t조식 및 석식 운영 X\n\t중식은 11~14시 운영\n")
-    print("서울캠퍼스 기숙사식당\n\t위치: 308관 지하 1층\n\t조식 운영 X\n\t중식은 11~14시 운영\n\t석식은 17:30~18:30 운영\n")
-    print("안성캠퍼스 카우잇츠\n\t위치: 707관 1층\n\t조식 및 석식 운영 X\n\t중식은 11:30~13:30 운영\n")
+    print(data)
+
+def del_info(data):
+    print(data)
+    num = int(input("삭제할 행의 번호를 입력하세요.\n"))
+
+    new_data = data.drop([data.index[num]])
+    print(new_data)
+
+    data.to_csv('./new_data.csv')
+
+def add_info(data):
+    print("추가할 데이터를 입력받겠습니다.\n")
+    
+    campus = input("캠퍼스를 입력하세요 (ex.서울캠퍼스):")
+    restaurant = input("식당을 입력하세요 (ex.참슬기식당):")
+    location = input("위치를 입력하세요(ex.310관 지하 4층):")
+    breakfast = input("조식 운영 현황을 입력하세요(ex.7:00 ~ 9:00):")
+    lunch = input("중식 운영 현황을 입력하세요(ex.11:00 ~ 14:00):")
+    dinner = input("석식 운영 현황을 입력하세요(ex.17:30 ~ 18:20):")
+
+    new_data = [campus, restaurant, location, breakfast, lunch, dinner]
+    data.loc[len(data)] = new_data
+
+    print(new_data)
+    data.to_csv('./new_data2.csv')

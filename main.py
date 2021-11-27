@@ -8,14 +8,8 @@ from rank import *
 from info import *
 from manage import *
 
-"""
-f = open('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/3조_prototype/menu_contents.csv', 'r', encoding='utf-8')
-lines = f.readlines()    
-f.close()
-# 메뉴 파일 입출력 관련 수작업 부분(?) 전부 pandas로 대체 
-"""
-
-data = pd.read_csv('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/3조_prototype/menu_contents.csv', encoding = 'utf-8')
+data = pd.read_csv('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/3조_prototype_옒삽질/menu_including_rate.csv', encoding = 'utf-8')
+infodata = pd.read_csv('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/3조_prototype_옒삽질/rest_info.csv', encoding = 'utf-8')
 
 while(True): 
     # 프로그램 시작 ---------------------------------------------------------------------------
@@ -27,7 +21,7 @@ while(True):
     print("5. 프로그램 종료\n")
     ans = int(input())
 
-    if (ans == 1) : # 학식 메뉴 보여주기
+    if (ans == 1) : # 학식 메뉴 보여주기 ------------------------------------------------------
         cam = 0
         cam = campus() # 캠퍼스 선택
         cam_time = times() # 시간대(조식 / 중식 / 석식) 선택
@@ -36,7 +30,7 @@ while(True):
         finish()
         
 
-    elif (ans == 999) : # 관리자 모드 들어가기
+    elif (ans == 999) : # 관리자 모드 들어가기 ------------------------------------------------
         print("진입할 메뉴를 선택하세요. \n\n")
         print("1. 요일 설정\n")
         print("2. 메뉴 수정\n")
@@ -60,13 +54,52 @@ while(True):
             else: # 메뉴 추가 --> ans == 2인 경우 
                 add_menu(data)
 
-        # elif (ans == 3):
-            # 
+        elif (ans == 3):
+            #print(infodata)
+            print("\n원하시는 작업을 선택하세요.\n\n") 
+            print("1. 식당 정보 삭제\n")
+            print("2. 식당 정보 추가\n")
 
-    elif (ans == 4) : # 식당 정보 보여주기
-        print(restaurant)
+            ans = int(input())
 
-    elif (ans == 5) : # 프로그램 종료하기
+            if (ans == 1): #식당 정보 삭제
+                del_info(infodata)
+            else: #식당 정보 추가 --> ans == 2인 경우
+                add_info(infodata)
+
+    #elif (ans == 2) : # 랭킹 조회 ------------------------------------------------------------
+            
+    elif (ans == 3) : # 만족도 조사 ----------------------------------------------------------
+        while(1):
+            answer = input("학식을 드셨나요? (yes/no) ")
+            
+            if (answer == "yes"): # 학식을 먹은 사람의 경우 만족도 조사 시행
+                print("만족도 조사의 대상을 특정하겠습니다.")
+                cam = 0
+                cam_time = 0
+                cam = campus()
+                cam_time = times()
+                menu_prt(cam, cam_time, today, data)
+                satisfy(data)
+                finish()
+                break
+
+            elif (answer == "no"): # 학식을 먹지 않은 사람의 경우 만족도 조사 참여 불가 
+                print("학식을 먹은 뒤, 만족도 조사에 참여해주세요.")
+                finish()
+                break
+
+            else: # 잘못된 입력
+                print("yes 혹은 no로 대답해주세요.")
+
+
+
+    elif (ans == 4) : # 식당 정보 보여주기 ----------------------------------------------------
+        restaurant(infodata)
+        finish()
+
+    elif (ans == 5) : # 프로그램 종료하기 -----------------------------------------------------
+        print("프로그램을 종료합니다.")
         exit(0)
     
     else : 
