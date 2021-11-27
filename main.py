@@ -81,8 +81,13 @@ while(True):
 
     elif (ans == 2) : # 랭킹 조회 ------------------------------------------------------------
         while(True):
-            rank_prt()
+            cam = 0
+            cam_time = 0
+            cam = campus()
+            cam_time = times()
+            rank_prt(cam, cam_time, today, data)
             finish()
+            break
             
     elif (ans == 3) : # 만족도 조사 ----------------------------------------------------------
         while(1):

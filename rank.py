@@ -33,23 +33,33 @@ def satisfy(data) : # 만족도 조사 대상을 한정한 이후의 과정
             print("잘못된 번호를 입력하셨습니다.")
 
 
-def rank_prt() :
+def rank_prt(cam, cam_time, today, data) :
+    # rating_sample에는 만족도가 임의로 반영되어있음. 이전에 실행된 결과라고 가정한 것.
 
-    data = pd.read_csv('rating_sample.csv')
+    # 캠퍼스 & 시간대 반영 
+    arr_campus=['서울캠퍼스', '안성캠퍼스']
+    arr_time=['조식','중식','석식']
+    arr_day=['월요일','화요일','수요일','목요일','금요일','토요일','일요일']
 
-    rank = new['만족도'].rank(ascending=False)
+    for i in arr_campus:
+        if(i == arr_campus[cam-1]):
+            filter_whichCam = data['캠퍼스 '] == i  #서울캠(arr_campus[0]) or 안성캠(arr_campus[1])
+            data_cam = data[filter_whichCam]
+            
+        for j in arr_time:
+            if(j == arr_time[cam_time-1]):
+                filter_whichTime = data_cam['시간대'] == j  #조식(arr_time[0]) or 중식(arr_time[1]) or 석식(arr_time[2])
+                data_time = data_cam[filter_whichTime]
 
-    df = pd.read_csv('rating_sample.csv')
-    new = df.sort_values(['만족도'], ascending=[False])
-    rank = new['만족도'].rank(ascending=False)
-
-    ranking = []
-
-    for i in ranking:
-        print("랭킹 " + str(int(i)) + "위" + menu)
-        ranking.append(str(int(i)) + "위")
-
-    ranking = pd.DataFrame({'랭킹': ranking})
-    userselect = input("랭킹의 기준을 선택하세요: 요일, 건물, 식당, 시간대\n")
-
-    df_sort_group = df.sort_values(by=[userselect, "만족도"], ascending=[False, True])
+        for j in arr_day:
+            if(j == arr_day[today-1]):
+                filter_whichDay = data_time['요일'] == j  #조식(arr_time[0]) or 중식(arr_time[1]) or 석식(arr_time[2])
+                data_day = data_time[filter_whichDay]
+    
+    # 내림차순 정렬
+    rank = data_day.sort_values(by=["만족도"], ascending=[False]) 
+    
+    # 순위를 보여줄 것이므로 index reset
+    rank = rank.reset_index(drop=True)
+    rank.index = rank.index + 1
+    print(rank)

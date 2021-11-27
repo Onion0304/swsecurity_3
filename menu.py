@@ -3,85 +3,29 @@
 # 코드가 반복되어서 함수를 분리했어요. 
 
 def filter_day(today, data): # 요일 추출 
-    if (today == 1): # 월요일 추출
-            filter3 = data['요일'] == '월요일'
-            data4 = data[filter3]
-            print(data4.loc[:,['건물', '식당', '메뉴', '가격', '칼로리']])
-            return 
-        
-    elif (today == 2): # 화요일 추출
-            filter3 = data['요일'] == '화요일'
-            data4 = data[filter3]
-            print(data4.loc[:,['건물', '식당', '메뉴', '가격', '칼로리']])
-            return
-        
-    elif (today == 3): # 수요일 추출
-            filter3 = data['요일'] == '수요일'
-            data4 = data[filter3]
-            print(data4.loc[:,['건물', '식당', '메뉴', '가격', '칼로리']])
-            return
-        
-    elif (today == 4): # 목요일 추출
-            filter3 = data['요일'] == '목요일'
-            data4 = data[filter3]
-            print(data4.loc[:,['건물', '식당', '메뉴', '가격', '칼로리']])
-            return
-        
-    elif (today == 5): # 금요일 추출
-            filter3 = data['요일'] == '금요일'
-            data4 = data[filter3]
-            print(data4.loc[:,['건물', '식당', '메뉴', '가격', '칼로리']])
-            return
-        
-    elif (today == 6): # 토요일 추출
-            filter3 = data['요일'] == '토요일'
-            data4 = data[filter3]
-            print(data4.loc[:,['건물', '식당', '메뉴', '가격', '칼로리']])
-            return
-        
-    else: # 일요일 추출
-            filter3 = data['요일'] == '일요일'
-            data4 = data[filter3]
-            print(data4.loc[:,['건물', '식당', '메뉴', '가격', '칼로리']])
-            return
-        
+  arr_day=['월요일','화요일','수요일','목요일','금요일','토요일','일요일']
+
+  for i in arr_day:
+    if(i == arr_day[today-1]):
+      filter_whichDay = data['요일'] == i
+      data_day = data[filter_whichDay]
+      print(data_day.loc[:,['건물', '식당', '메뉴', '가격', '칼로리']])
+      break
 
 
 def menu_prt(cam, cam_time, today, data) : 
-    if (cam == 1): # 서울캠 추출 
-        filter = data['캠퍼스 '] == '서울캠퍼스'
-        data2 = data[filter]
-        
-        if (cam_time == 1): # 조식 추출
-            filter2 = data2['시간대'] == '조식'
-            data3 = data2[filter2]
-            filter_day(today, data3)
-           
-        elif (cam_time == 2): # 중식 추출
-            filter2 = data2['시간대'] == '중식'
-            data3 = data2[filter2]
-            filter_day(today, data3)
+    arr_campus=['서울캠퍼스', '안성캠퍼스']
+    arr_time=['조식','중식','석식']
+
+    for i in arr_campus:
+        if(i == arr_campus[cam-1]):
+            filter_whichCam = data['캠퍼스 '] == i  #서울캠(arr_campus[0]) or 안성캠(arr_campus[1])
+            data_cam = data[filter_whichCam]
             
-        else: # 석식 추출
-            filter2 = data2['시간대'] == '석식'
-            data3 = data2[filter2]
-            filter_day(today, data3)
-            
-    else: # cam == 2일 경우, 안성캠 데이터 필터링
-        filter = data['캠퍼스 '] == '안성캠퍼스'
-        data2 = data[filter]
-        
-        if (cam_time == 1): # 조식 추출
-            filter2 = data2['시간대'] == '조식'
-            data3 = data2[filter2]
-            filter_day(today, data3)
-           
-        elif (cam_time == 2): # 중식 추출
-            filter2 = data2['시간대'] == '중식'
-            data3 = data2[filter2]
-            filter_day(today, data3)
-            
-        else: # 석식 추출
-            filter2 = data2['시간대'] == '석식'
-            data3 = data2[filter2]
-            filter_day(today, data3)
+        for j in arr_time:
+            if(j == arr_time[cam_time-1]):
+                filter_whichTime = data_cam['시간대'] == j  #조식(arr_time[0]) or 중식(arr_time[1]) or 석식(arr_time[2])
+                data_time = data_cam[filter_whichTime]
+                filter_day(today, data_time)
+                return
+   
