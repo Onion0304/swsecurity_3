@@ -6,6 +6,7 @@ from choice import *
 from menu import *
 
 def satisfy(data) : # 만족도 조사 대상을 한정한 이후의 과정 
+
     while(1):
         ans = int(input("만족도를 평가할 메뉴의 번호를 입력하세요: "))
 
@@ -21,7 +22,8 @@ def satisfy(data) : # 만족도 조사 대상을 한정한 이후의 과정
                 if (score == 1) or (score == 2) or (score == 3) :
                     data.at[ans,'만족도'] += score # 만족도를 원본 데이터에 반영  
                     print("만족도를 평가해주셔서 감사합니다.\n")
-                    data.to_csv('./new_data_satisfy.csv') # 나중에 통일해야 
+                    #data.to_csv('./new_data_satisfy.csv') # 나중에 통일해야 
+                    data.to_csv('./menu_result_sample.csv')
                     break
 
                 else :
@@ -47,14 +49,23 @@ def rank_prt(cam, cam_time, today, data) :
             data_cam = data[filter_whichCam]
             
         for j in arr_time:
-            if(j == arr_time[cam_time-1]):
-                filter_whichTime = data_cam['시간대'] == j  #조식(arr_time[0]) or 중식(arr_time[1]) or 석식(arr_time[2])
-                data_time = data_cam[filter_whichTime]
+            check_for_empty_1 = data_cam.empty
+            if(check_for_empty_1 == True):
+                print("그 날은 식사가 없습니다\n")
+            else:
+                if(j == arr_time[cam_time-1]):
+                    filter_whichTime = data_cam['시간대'] == j  #조식(arr_time[0]) or 중식(arr_time[1]) or 석식(arr_time[2])
+                    data_time = data_cam[filter_whichTime]
 
         for j in arr_day:
-            if(j == arr_day[today-1]):
-                filter_whichDay = data_time['요일'] == j  #조식(arr_time[0]) or 중식(arr_time[1]) or 석식(arr_time[2])
-                data_day = data_time[filter_whichDay]
+            check_for_empty_2 = data_time.empty
+            if(check_for_empty_2 == True):
+                print("그 날은 식사가 없습니다.\n")
+                return
+            else:
+                if(j == arr_day[today-1]):
+                    filter_whichDay = data_time['요일'] == j  #조식(arr_time[0]) or 중식(arr_time[1]) or 석식(arr_time[2])
+                    data_day = data_time[filter_whichDay]
     
     # 내림차순 정렬
     rank = data_day.sort_values(by=["만족도"], ascending=[False]) 

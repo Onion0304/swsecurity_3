@@ -8,8 +8,8 @@ from rank import *
 from info import *
 from manage import *
 
-data = pd.read_csv('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/1127_prototype_수정/menu_including_rate.csv', encoding = 'utf-8')
-infodata = pd.read_csv('C:/Users/ye303/Desktop/소프트웨어보안프로젝트/1127_prototype_수정/rest_info.csv', encoding = 'utf-8')
+data = pd.read_csv('./menu_result_sample.csv', encoding = 'utf-8')
+infodata = pd.read_csv('./rest_info.csv', encoding = 'utf-8')
 
 while(True): 
     # 프로그램 시작 ---------------------------------------------------------------------------
@@ -33,10 +33,10 @@ while(True):
     elif (ans == 999) : # 관리자 모드 들어가기 ------------------------------------------------
         print("코드를 입력하세요.\n")
         manage_code = input()
-        if (manage_code == "banana") : #관리자 모드 보안 acess 1 --------------------------------
+        if (manage_code == "banana") : #관리자 모드 보안 access 1 --------------------------------
             print("코드를 입력하세요.\n")
             manage_code2 = input()
-            if (manage_code2 == "cat") : #관리자 모드 보안 acess 2 ------------------------------
+            if (manage_code2 == "cat") : #관리자 모드 보안 access 2 ------------------------------
                 print("진입할 메뉴를 선택하세요. \n\n")
                 print("1. 요일 설정\n")
                 print("2. 메뉴 수정\n")
@@ -48,36 +48,68 @@ while(True):
                     today = day()
 
                 elif (ans == 2):
-                    print("원하시는 메뉴를 선택하세요.\n\n")
-                    print("1. 메뉴 삭제\n")
-                    print("2. 메뉴 추가\n")
+                    while(1):
+                        print("원하시는 메뉴를 선택하세요.\n\n")
+                        print("1. 메뉴 삭제\n")
+                        print("2. 메뉴 추가\n")
 
-                    ans = int(input())
+                        ans = int(input())
 
-                    if (ans == 1):  # 메뉴 삭제
-                        del_menu(data)
+                        if (ans == 1):  # 메뉴 삭제
+                            repeatOrNot = 'Y'
+                            while(1):
+                                data = pd.read_csv('./menu_result_sample.csv', encoding = 'utf-8')
+                                del_menu(data)
+                                while(1):
+                                    repeatOrNot = input("데이터 삭제를 계속 진행할까요? (Y/N)")
+                                    if (repeatOrNot == 'N') or (repeatOrNot == 'n'):
+                                        finish()
+                                        break
 
-                    else:  # 메뉴 추가 --> ans == 2인 경우
-                        add_menu(data)
+                                    elif (repeatOrNot != 'Y') or (repeatOrNot != 'y'):
+                                        continue
+
+                                    else: # yes 입력 받았을 경우 
+                                        break
+
+                                if (repeatOrNot == 'N') or (repeatOrNot == 'n'):
+                                    break        
+
+                        elif (ans == 2):  # 메뉴 추가
+                            repeatOrNot = 'Y'
+                            while(1):
+                                data = pd.read_csv('./menu_result_sample.csv', encoding = 'utf-8')
+                                add_menu(data)
+                                while(1):
+                                    repeatOrNot = input("데이터 추가를 계속 진행할까요? (Y/N)")
+                                    if (repeatOrNot == 'N') or (repeatOrNot == 'n'):
+                                        finish()
+                                        break
+
+                                    elif (repeatOrNot != 'Y') or (repeatOrNot != 'y'):
+                                        continue
+
+                                    else: # yes 입력 받았을 경우 
+                                        break
+
+                                if (repeatOrNot == 'N') or (repeatOrNot == 'n'):
+                                    break 
 
                 elif (ans == 3):
-                    # print(infodata)
-                    print("\n원하시는 작업을 선택하세요.\n\n")
-                    print("1. 식당 정보 삭제\n")
-                    print("2. 식당 정보 추가\n")
+                    while(1):
+                        print("\n원하시는 작업을 선택하세요.\n\n")
+                        print("1. 식당 정보 삭제\n")
+                        print("2. 식당 정보 추가\n")
 
-                    ans = int(input())
+                        ans = int(input())
 
-                    if (ans == 1):  # 식당 정보 삭제
-                        del_info(infodata)
-                    else:  # 식당 정보 추가 --> ans == 2인 경우
-                        add_info(infodata)
-            else :
-                break
-        else :
-            break
-
-
+                        if (ans == 1):  # 식당 정보 삭제
+                            del_info(infodata)
+                        elif (ans == 2):  # 식당 정보 추가
+                            add_info(infodata)
+                        else:
+                            continue
+                        
 
     elif (ans == 2) : # 랭킹 조회 ------------------------------------------------------------
         while(True):
@@ -111,7 +143,6 @@ while(True):
 
             else: # 잘못된 입력
                 print("yes 혹은 no로 대답해주세요.")
-
 
 
     elif (ans == 4) : # 식당 정보 보여주기 ----------------------------------------------------

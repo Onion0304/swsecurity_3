@@ -5,6 +5,7 @@
 def restaurant(data):
     print("식당 정보를 알려드리겠습니다.\n")
     print(data)
+    
 
 def del_info(data):
     print(data)
@@ -13,7 +14,8 @@ def del_info(data):
     new_data = data.drop([data.index[num]])
     print(new_data)
 
-    data.to_csv('./new_data.csv')
+    data.to_csv('./menu_result_sample.csv')
+
 
 def add_info(data):
     print("추가할 데이터를 입력받겠습니다.\n")
@@ -29,4 +31,4 @@ def add_info(data):
     data.loc[len(data)] = new_data
 
     print(new_data)
-    data.to_csv('./new_data2.csv')
+    data.to_csv('./menu_result_sample.csv')
