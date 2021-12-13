@@ -1,11 +1,11 @@
 # 1) 만족도 조사 (def satisfy) 
 # 2) 랭킹 출력 (def rank_prt)
 
-import pandas as pd
-from choice import *
-from menu import *
-
 def satisfy(data) : # 만족도 조사 대상을 한정한 이후의 과정 
+    try:
+        data.drop(['Unnamed: 0'], axis = 1, inplace = True) # pandas에서 자동생성되는 Unnamed: 0 컬럼 제거 
+    except KeyError:
+        print()
 
     while(1):
         ans = int(input("만족도를 평가할 메뉴의 번호를 입력하세요: "))

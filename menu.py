@@ -15,6 +15,7 @@ def filter_day(today, data): # 요일 추출
         print(data_day.loc[:,['건물', '식당', '메뉴', '가격', '칼로리']])
         return 0
 
+
 def menu_prt(cam, cam_time, today, data) : 
     arr_campus=['서울캠퍼스', '안성캠퍼스']
     arr_time=['조식','중식','석식']

@@ -1,5 +1,4 @@
 import csv
-import time
 import pandas as pd
 
 from choice import *
@@ -106,7 +105,6 @@ while(True):
                                     break
 
                 elif (ans == 3):
-                    # 메뉴처럼 while문 추가해서 데이터 새로 불러오는 과정이 있어야 함 
                     while(1):
                         infodata = pd.read_csv('./rest_info.csv', encoding = 'utf-8')
 

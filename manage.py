@@ -3,8 +3,6 @@
 # 3) 메뉴 삭제 (def del_menu)
 # 4) 메뉴 추가 (def add_menu)
 
-import time
-
 def day():
     while(True):
         print("오늘의 요일을 선택해주세요.\n\n")
@@ -21,8 +19,10 @@ def day():
         else :
             print("잘못된 번호를 입력하셨습니다.\n")
 
+
 def finish():
     input("\n초기화면으로 돌아가시려면 enter를 눌러주세요.\n")
+
 
 def del_menu(data):
     try:
@@ -75,9 +75,23 @@ def add_menu(data):
     building = input("건물을 입력하세요 (ex.308관)")
     restaurant = input("식당을 입력하세요 (ex.참슬기식당)")
     mealtime = input("시간대를 입력하세요(ex.조식)")
-    price = int(input("가격을 입력하세요(ex.3200)"))
+    while(1):
+        try:
+            price = int(input("가격을 입력하세요(ex.3200)"))
+        except ValueError:
+            print("잘못된 타입의 값입니다. 다시 입력받겠습니다.")
+            continue
+        else:
+            break
     menu = input("메뉴를 입력하세요")
-    kcal = int(input("칼로리를 입력하세요(ex.800)"))
+    while(1):
+        try:
+            kcal = int(input("칼로리를 입력하세요(ex.800)"))
+        except ValueError:
+            print("잘못된 타입의 값입니다. 다시 입력받겠습니다.")
+            continue
+        else:
+            break
 
     new_data = [day, campus, building, restaurant, mealtime, price, menu, kcal, 0] # 마지막 0은 '만족도' 초기화 값 
     print("새 데이터는 ", new_data)
