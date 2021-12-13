@@ -8,16 +8,26 @@ def restaurant(data):
     
 
 def del_info(data):
+    try:
+        data.drop(['Unnamed: 0'], axis = 1, inplace = True) # pandas에서 자동생성되는 Unnamed: 0 컬럼 제거 
+    except KeyError:
+        print()
+        
     print(data)
     num = int(input("삭제할 행의 번호를 입력하세요.\n"))
 
     new_data = data.drop([data.index[num]])
     print(new_data)
 
-    data.to_csv('./menu_result_sample.csv')
+    new_data.to_csv('./rest_info.csv')
 
 
 def add_info(data):
+    try:
+        data.drop(['Unnamed: 0'], axis = 1, inplace = True) # pandas에서 자동생성되는 Unnamed: 0 컬럼 제거 
+    except KeyError:
+        print()
+
     print("추가할 데이터를 입력받겠습니다.\n")
     
     campus = input("캠퍼스를 입력하세요 (ex.서울캠퍼스):")
@@ -30,5 +40,5 @@ def add_info(data):
     new_data = [campus, restaurant, location, breakfast, lunch, dinner]
     data.loc[len(data)] = new_data
 
-    print(new_data)
-    data.to_csv('./menu_result_sample.csv')
+    print(data)
+    data.to_csv('./rest_info.csv')

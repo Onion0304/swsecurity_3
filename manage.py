@@ -1,11 +1,9 @@
-# -1) 요일 지정 -> csv 요일만 
-# 0) 마무리 (def finish)
-# ----------------
-# 1) 메뉴 삭제
-# 2) 메뉴 추가
+# 1) 요일 설정 (def day)
+# 2) 프로그램 마무리 - 초기 화면으로 이동 (def finish)
+# 3) 메뉴 삭제 (def del_menu)
+# 4) 메뉴 추가 (def add_menu)
 
 import time
-
 
 def day():
     while(True):
@@ -32,7 +30,11 @@ def finish():
 
 
 def del_menu(data):
-    
+    try:
+        data.drop(['Unnamed: 0'], axis = 1, inplace = True) # pandas에서 자동생성되는 Unnamed: 0 컬럼 제거 
+    except KeyError:
+        print()
+
     week = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일']
 
     while(1):
@@ -46,21 +48,35 @@ def del_menu(data):
     condition = (data.요일 == ans) 
     filtered = data[condition]
     while(1):
-        print(filtered) # 이용자에게 대상 데이터 보여주기 
+        if (len(filtered) == 0):
+            print("해당하는 데이터가 없습니다.")
+            break
+        else:
+            print(filtered) # 이용자에게 대상 데이터 보여주기 
 
         num = int(input("삭제할 행의 번호를 입력하세요."))
 
         ans = input(str(num) + "을 입력하셨습니다. 정말 삭제할까요? (Y/N)")
         if (ans == 'Y') or (ans == 'y'):
             new_data = data.drop([data.index[num]])
+            """try:
+                new_data.drop(['Unnamed: 0'], axis = 1, inplace = True) # pandas에서 자동생성되는 Unnamed: 0 컬럼 제거 
+            except KeyError:
+                print()"""
+            print("삭제 후 메뉴 데이터를 출력합니다.")
             print(new_data)
-            data.to_csv('./menu_result_sample.csv')
+            new_data.to_csv('./menu_info.csv')
             return
         else: 
-            continue
+            #continue
+            break
 
 
 def add_menu(data):
+    try:
+        data.drop(['Unnamed: 0'], axis = 1, inplace = True) # pandas에서 자동생성되는 Unnamed: 0 컬럼 제거 
+    except KeyError:
+        print()
 
     print("추가할 데이터를 입력받겠습니다.\n")
 
@@ -79,4 +95,4 @@ def add_menu(data):
     data.loc[len(data)] = new_data  
 
     print(data)
-    data.to_csv('./menu_result_sample.csv')
+    data.to_csv('./menu_info.csv')

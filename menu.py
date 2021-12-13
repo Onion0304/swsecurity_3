@@ -9,8 +9,13 @@ def filter_day(today, data): # 요일 추출
     if(i == arr_day[today-1]):
       filter_whichDay = data['요일'] == i
       data_day = data[filter_whichDay]
-      print(data_day.loc[:,['건물', '식당', '메뉴', '가격', '칼로리']])
-      break
+      if (len(data_day) == 0):
+        print("현재 운영하지 않습니다.")
+        return 1
+      else:
+        print(data_day.loc[:,['건물', '식당', '메뉴', '가격', '칼로리']])
+        return 0
+      #break
 
 
 def menu_prt(cam, cam_time, today, data) : 
@@ -19,13 +24,13 @@ def menu_prt(cam, cam_time, today, data) :
 
     for i in arr_campus:
         if(i == arr_campus[cam-1]):
-            filter_whichCam = data['캠퍼스 '] == i  #서울캠(arr_campus[0]) or 안성캠(arr_campus[1])
+            filter_whichCam = data['캠퍼스'] == i  #서울캠(arr_campus[0]) or 안성캠(arr_campus[1])
             data_cam = data[filter_whichCam]
             
         for j in arr_time:
             if(j == arr_time[cam_time-1]):
                 filter_whichTime = data_cam['시간대'] == j  #조식(arr_time[0]) or 중식(arr_time[1]) or 석식(arr_time[2])
                 data_time = data_cam[filter_whichTime]
-                filter_day(today, data_time)
-                return
+                idf = filter_day(today, data_time)
+                return idf
    

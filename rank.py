@@ -22,8 +22,7 @@ def satisfy(data) : # 만족도 조사 대상을 한정한 이후의 과정
                 if (score == 1) or (score == 2) or (score == 3) :
                     data.at[ans,'만족도'] += score # 만족도를 원본 데이터에 반영  
                     print("만족도를 평가해주셔서 감사합니다.\n")
-                    #data.to_csv('./new_data_satisfy.csv') # 나중에 통일해야 
-                    data.to_csv('./menu_result_sample.csv')
+                    data.to_csv('./menu_info.csv')
                     break
 
                 else :
@@ -38,6 +37,11 @@ def satisfy(data) : # 만족도 조사 대상을 한정한 이후의 과정
 def rank_prt(cam, cam_time, today, data) :
     # rating_sample에는 만족도가 임의로 반영되어있음. 이전에 실행된 결과라고 가정한 것.
 
+    try:
+        data.drop(['Unnamed: 0'], axis = 1, inplace = True) # pandas에서 자동생성되는 Unnamed: 0 컬럼 제거 
+    except KeyError:
+        print()
+
     # 캠퍼스 & 시간대 반영 
     arr_campus=['서울캠퍼스', '안성캠퍼스']
     arr_time=['조식','중식','석식']
@@ -45,7 +49,7 @@ def rank_prt(cam, cam_time, today, data) :
 
     for i in arr_campus:
         if(i == arr_campus[cam-1]):
-            filter_whichCam = data['캠퍼스 '] == i  #서울캠(arr_campus[0]) or 안성캠(arr_campus[1])
+            filter_whichCam = data['캠퍼스'] == i  #서울캠(arr_campus[0]) or 안성캠(arr_campus[1])
             data_cam = data[filter_whichCam]
             
         for j in arr_time:
