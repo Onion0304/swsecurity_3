@@ -22,12 +22,7 @@ def day():
             print("잘못된 번호를 입력하셨습니다.\n")
 
 def finish():
-    """
-    print("20초 뒤 초기 화면으로 이동합니다.")
-    time.sleep(20)
-    """
     input("\n초기화면으로 돌아가시려면 enter를 눌러주세요.\n")
-
 
 def del_menu(data):
     try:
@@ -59,16 +54,11 @@ def del_menu(data):
         ans = input(str(num) + "을 입력하셨습니다. 정말 삭제할까요? (Y/N)")
         if (ans == 'Y') or (ans == 'y'):
             new_data = data.drop([data.index[num]])
-            """try:
-                new_data.drop(['Unnamed: 0'], axis = 1, inplace = True) # pandas에서 자동생성되는 Unnamed: 0 컬럼 제거 
-            except KeyError:
-                print()"""
             print("삭제 후 메뉴 데이터를 출력합니다.")
             print(new_data)
             new_data.to_csv('./menu_info.csv')
             return
         else: 
-            #continue
             break
 
 

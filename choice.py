@@ -7,8 +7,12 @@ def campus() :
         print("1. 서울 캠퍼스\n")
         print("2. 안성 캠퍼스\n")
 
-        ans = int(input())
-    
+        try:
+            ans = int(input())
+        except ValueError:
+            print("잘못된 입력입니다. 값을 다시 입력받겠습니다.")
+            continue
+
         if (ans == 1) or (ans == 2) :
             return ans
         else :

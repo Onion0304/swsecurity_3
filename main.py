@@ -121,6 +121,7 @@ while(True):
                             break
                         elif (ans == 2):  # 식당 정보 추가
                             add_info(infodata)
+                            break
                         else:
                             continue
                     finish()    
